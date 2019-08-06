@@ -208,13 +208,12 @@ pipeline = ['pipeline']
 # LIFELINE 7: HAZARDOUS MATERIAL
 facilities = ['hazardous waste','nuclear power plant']
 hazardous_incident = []
-tacos_spots = ['tacos', 'taqueria']
 
 
 
 
 
-def find_lifelines(city, api_key, location_to_save_csv='datasets/',
+def find_lifelines(city, api_key,
 law_enforcement_security=law_enforcement_security,
 search_rescue=search_rescue,
 fire_services=fire_services,
@@ -247,8 +246,7 @@ aviation=aviation,
 maritime= maritime,
 pipeline=pipeline,
 facilities=facilities,
-hazardous_incident=hazardous_incident,
-tacos = tacos_spots):
+hazardous_incident=hazardous_incident):
     """
     FEMA has 7 Lifelines. Each Lifeline has between 2 and 7 components that FEMA uses to monitor the status of each lifeline during an incident. This function takes in a city name to find the lifelines in that city.
 
@@ -367,9 +365,8 @@ tacos = tacos_spots):
 
     waste = [(facilities, 'Facilities'), (hazardous_incident, 'Incident')]
 
-    tacos = [(tacos_spots, 'Tacos')]
 
-    category_list = [(safety, 'Safety & Security', 1),(fws, 'Food, Water & Shelter', 2),(health, 'Health & Medical', 3), (energy, 'Energy', 4),(communication, 'Communication', 5),(transportation, 'Transportation', 6), (waste, 'Hazardous Material', 7), (tacos,'Tacos', 8)]
+    category_list = [(safety, 'Safety & Security', 1),(fws, 'Food, Water & Shelter', 2),(health, 'Health & Medical', 3), (energy, 'Energy', 4),(communication, 'Communication', 5),(transportation, 'Transportation', 6), (waste, 'Hazardous Material', 7)]
 
 
 
@@ -426,8 +423,8 @@ tacos = tacos_spots):
             df['Component'] = component_builder(category_list)
             df = df.dropna()
 
-        #return df
-        return df.to_csv(f'{location_to_save_csv}{city}.csv', index=False)
+        return df
+        # uncomment below to save df to a csv
+        # return df.to_csv(f'location_to_save_csv/{city}.csv', index=False)
     return scrape_google(complete_list, api_key)
-    print('Done! Go get that csv baby!')
-    print(f'Saved to:{location_to_save_csv}{city}.csv')
+    # print(f'Done! Saved to: location_to_save_csv/{city}.csv')
